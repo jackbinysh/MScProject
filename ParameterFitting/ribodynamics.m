@@ -13,17 +13,17 @@ for i=1:length(t),
     atc(i)=atc_input(t(i));
     iptg(i)=iptg_input(t(i));
 end;
-%plot(t,z,'k','LineWidth',3);
+plot(t,z,'k','LineWidth',3);
 
 hold on;
 s_tot = y(:,1)+y(:,3)+y(:,4);
 m_tot = y(:,2)+y(:,3)+y(:,4);
-%plot(t,s_tot,'b','LineWidth',3);
-%plot(t,m_tot,'r','LineWidth',3);
-%plot(t,y(:,4)./m_tot*10,'r','LineWidth',3);
+plot(t,s_tot,'b','LineWidth',3);
+plot(t,m_tot,'r','LineWidth',3);
+plot(t,y(:,4)./m_tot*10,'r','LineWidth',3);
 
 plot(t,atc+8,'r--','LineWidth',3);
-%plot(t,iptg,'k--','LineWidth',3);
+plot(t,iptg,'k--','LineWidth',3);
 
 function dy = model(t,y)
 
