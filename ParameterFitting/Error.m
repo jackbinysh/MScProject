@@ -15,8 +15,8 @@ Data = csvread('../data/InitialExperimentalData/data16_8.csv');
 % we then call in the ode solver
 ModelWithParams = @(t,x) RibodynamicsModel(t,x, theta);
 % get the model prediction
-Prediction = ode23s(ModelWithParams,Times,x0);
+[T,Prediction] = ode23s(ModelWithParams,Times,x0);
 % compute the difference between them
-Errors = Data - repmat(Prediction,1,length(Data));
+Errors = Data - repmat(Prediction(:,6),1,length(Data));
 Error = sum(sum(Errors.^2,1));
 end

@@ -1,4 +1,4 @@
-clear variables;
+clear variables; clc;
 
 %% specify an initial guess for the parameters. 
 %The order of parameters in the parameter vector is
@@ -30,16 +30,16 @@ theta = [
 
 %specify the parameter bounds.
 CanVary = [false,false,false,true,false,false,true,true,true,true,true,false,true,false,false, true, true, true, false,false,false];
-lb = repmat(-inf,1,length(theta));
+lb = repmat(0,1,length(theta));
 lb(~CanVary) = theta(~CanVary);
-ub = repmat(inf,1,length(theta));
+ub = repmat(Inf,1,length(theta));
 ub(~CanVary) = theta(~CanVary);
 
 %% Specify an initial guess for the state
 %order of states in initial state vector is [s,m,s:m,c,p,z]
-x0 = [0,0,0,0,0,0];
-lb = [repmat(-inf,1,length(x0)), lb];
-ub = [repmat(inf,1,length(x0)), ub];
+x0 = [0,0,0,0,0,10];
+lb = [repmat(0,1,length(x0)), lb];
+ub = [repmat(Inf,1,length(x0)), ub];
 InitialGuess = [x0,theta];
 
 %% plug the guess and the bounds into the minimization function

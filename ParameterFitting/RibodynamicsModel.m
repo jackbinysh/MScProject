@@ -59,9 +59,9 @@ end
         p=p1+p2;
         tp = t-floor(t/p)*p;
         if tp <= p1,
-            v = 1; %mM
+            v = 0; %mM
         else
-            v = 1; %mM
+            v = 0; %mM
         end
     end
 
