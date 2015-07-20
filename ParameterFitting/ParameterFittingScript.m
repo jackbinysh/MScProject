@@ -1,4 +1,4 @@
-clear variables; clc;
+clc;
 
 %% specify an initial guess for the parameters. 
 %The order of parameters in the parameter vector is
@@ -37,10 +37,10 @@ ub(~CanVary) = theta(~CanVary);
 
 %% Specify an initial guess for the state
 %order of states in initial state vector is [s,m,s:m,c,p,z]
-x0 = [0,0,0,0,0,10];
+x0 = [1,1,1,1,1,10];
 lb = [repmat(0,1,length(x0)), lb];
 ub = [repmat(Inf,1,length(x0)), ub];
 InitialGuess = [x0,theta];
 
-%% plug the guess and the bounds into the minimization function
-[x,fval,exitflag,output] = fmincon(@Error,InitialGuess,[],[],[],[],lb,ub);
+%% plug into the wrapper function for the fitter
+output = ParameterFit(InitialGuess,lb,ub);

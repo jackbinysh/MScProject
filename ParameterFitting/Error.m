@@ -18,5 +18,5 @@ ModelWithParams = @(t,x) RibodynamicsModel(t,x, theta);
 [T,Prediction] = ode23s(ModelWithParams,Times,x0);
 % compute the difference between them
 Errors = Data - repmat(Prediction(:,6),1,length(Data));
-Error = sum(sum(Errors.^2,1));
+Error = sum(sum(Errors.^2,1)); 
 end
