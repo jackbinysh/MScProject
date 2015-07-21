@@ -1,9 +1,32 @@
 function dx = RibodynamicsModel(t,x, theta)
 
-    % this defines the structure of the vector theta, the list of
-    % parameters which goes into the model
-    theta = num2cell(theta);
-    [copies,a_lac,a_tet,f_srna,f_lac,f_tet,k_on,k_off,k_hyb,delta_m,delta_s,delta_sm,delta_c,delta_g,matur,mu,beta,c,z0,vz,Kz] = theta{:};
+% the list of known parameter values
+%PLtetO1 and PLlacO1 parameters
+f_tet = 2535; %dimensionless (fold) (Lutz and Bujard, NAR, 1997)
+f_lac = 620; %dimensionless (fold) (Lutz and Bujard, NAR, 1997)
+a_tet = 11; %nM/min (Lutz and Bujard, NAR, 1997)
+a_lac = 11; %nM/min (Lutz and Bujard, NAR, 1997)
+%degradation parameters
+delta_g = 0.0005; %1/min (Andersen et al., Appl. Environ. Microbiol., 1998)
+matur = 0.132; %1/min (Iizuka et al., Anal. Chem., 2011)
+vz = 100; %nM/min (rate of enzymatic degradation) (Hersch, PNAS, 2004)
+Kz = 75; %nM (dissociation constant of enzymatic degradation) (Hersch, PNAS, 2004)
+% other parameters
+z0 = 9; % experimentally determined
+copies = 300; %(plasmid copy number)
+delta_sm = 0; %1/min
+
+% reading in the parameters we are currently guessing
+f_srna = theta.f_srna;
+k_on = theta.k_on;
+k_off = theta.k_off;
+k_hyb = theta.k_hyb;
+delta_m = theta.delta_m;
+delta_s = theta.delta_s;
+delta_c = theta. delta_c;
+mu = theta.mu;
+beta = theta.Beta;
+c = theta.c;
 
     %%% determining the forcing
     t0=0;
@@ -22,13 +45,13 @@ function dx = RibodynamicsModel(t,x, theta)
     end;
     %%% state equations
 
-    dx(1) = copies*a_tet/fu - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) + delta_m*(x(3) + x(4)); %sRNA
+    dx(1) = copies*a_tet/fu - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3); %sRNA
 
-    dx(2) = copies*a_lac/fv - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) + delta_s*(x(3) + x(4)); %mRNA
+    dx(2) = copies*a_lac/fv - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3); %mRNA
 
-    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_sm + delta_m + delta_s)*x(3); %sRNA:mRNA_intermediate
+    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_sm)*x(3); %sRNA:mRNA_intermediate
 
-    dx(4) = k_hyb*x(3) - mu*x(4) - (delta_c + delta_m + delta_s)*x(4); %sRNA:mRNA_stable
+    dx(4) = k_hyb*x(3) - mu*x(4) - (delta_c)*x(4); %sRNA:mRNA_stable
 
     Translation_Rate = beta*x(2) + f_srna*beta*x(4);
 

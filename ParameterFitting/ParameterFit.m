@@ -1,14 +1,20 @@
-function [History] = ParameterFit(InitialGuess,UpperBound,LowerBound)
+function [History,output] = ParameterFit(theta,x0)
 
     History.x = [];
     History.fval = [];
-    options = optimset('Display','iter','OutputFcn',@outfun, 'MaxIter', 2000);
-    [x,fval,exitflag,output] = fminsearch(@Error,InitialGuess, options);
-    %[x,fval,exitflag,output] = fmincon(@Error,InitialGuess,[],[],[],[],lb,ub)
-    %[x,fval,exitflag,output] = ga(@Error,length(lb),[],[],[],[],lb,ub);
+
+    LowerBounds = [x0.LowerBounds; theta.LowerBounds]';
+    BestGuess = [x0. BestGuess; theta.BestGuess]';
+    UpperBounds = [x0.UpperBounds; theta.UpperBounds]';
+
+    %options = gaoptimset('Display','iter','OutputFcns',@outfun, 'InitialPopulation',BestGuess);
+    options = gaoptimset('Display','iter', 'InitialPopulation',BestGuess);
+    
+    [x,fval,exitflag,output] = ga(@Error,length(BestGuess),[],[],[],[],...
+    LowerBounds,UpperBounds,[],options);
 
     %% output function for the optimiser
-    function stop = outfun(x,optimValues,state)
+    function state = outfun(x,optimValues,state)
          stop = false;
          if state == 'iter'
              % Concatenate current point and objective function
