@@ -17,16 +17,16 @@ copies = 300; %(plasmid copy number)
 delta_sm = 0; %1/min
 
 % reading in the parameters we are currently guessing
-f_srna = theta.f_srna;
-k_on = theta.k_on;
-k_off = theta.k_off;
-k_hyb = theta.k_hyb;
-delta_m = theta.delta_m;
-delta_s = theta.delta_s;
-delta_c = theta. delta_c;
-mu = theta.mu;
-beta = theta.Beta;
-c = theta.c;
+f_srna = theta{'f_srna',1};
+k_on = theta{'k_on',1};
+k_off = theta{'k_off',1};
+k_hyb = theta{'k_hyb',1};
+delta_m = theta{'delta_m',1};
+delta_s = theta{'delta_s',1};
+delta_c = theta{'delta_c',1};
+mu = theta{'mu',1};
+beta = theta{'beta',1};
+c = theta{'c',1};
 
     %%% determining the forcing
     t0=0;
