@@ -17,6 +17,8 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(theta,x0)
     
     % setting some display etc. options
     opts.DispModulo = 1;
+    opts.LogTime = 5;
+    opts.PopSize = 100;
     [xmin,fmin,counteval,stopflag,out] = cmaes('Error',BestGuess,Sigma,opts,Scale);
 end
 
