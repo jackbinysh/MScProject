@@ -14,17 +14,7 @@ theta = p(7:end);
  if isempty(Data)
     Data = csvread('../data/InitialExperimentalData/data16_8.csv');
  end
-
-% % MATLAB
-% % creating a function handle with the parameters built in, which
-% % we then call in the ode solver
-% %cd('./MatlabRibodynamics')
-% %ModelWithParams = @(t,x) RibodynamicsModel(t,x, theta);
-% % get the model prediction
-% %[T,Prediction] = ode23s(ModelWithParams,Times,x0.BestGuess);
-% %cd('..')
-% 
-% %MEX
+%MEX
 cd('./MexRibodynamics')
 ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
 % get the model prediction
