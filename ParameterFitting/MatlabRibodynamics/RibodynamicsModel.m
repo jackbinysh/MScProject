@@ -57,7 +57,7 @@ c = theta{'c',1};
 
     dx(5) = Translation_Rate - matur*x(5) - mu*x(5) - delta_g*x(5) - vz*x(5)/(Kz + x(5) + c*(x(6)-z0)); %GFP non-mature
 
-    dx(6) = (1/c)* (matur*x(5) - mu*(x(6) + delta_g)*c*(x(6)-z0) - (vz*c*(x(6)-z0))/(Kz + x(5) + c*(x(6)-z0))); %measured fluoresence
+    dx(6) = (1/c)* ( matur*x(5) - (mu + delta_g)*c*(x(6)-z0) - ((vz*c*(x(6)-z0))/(Kz + x(5) + c*(x(6)-z0))) ); %measured fluoresence
 
     dx = dx';
     

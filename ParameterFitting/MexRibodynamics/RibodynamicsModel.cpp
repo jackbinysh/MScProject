@@ -1,5 +1,5 @@
 /*==========================================================
- * RibodynamicsModel.c 
+ * RibodynamicsModel.cpp 
  *
  * Takes an input scalar representing time (t) 
  * a vector representing the state (x)
@@ -58,7 +58,6 @@ void Dx(double dT, double* pdX, double* pdTheta, double* pdDx)
     // other parameters
     double z0 = 9; // experimentally determined
     double copies = 300; //(plasmid copy number)
-    double delta_sm = 0; //1/min
     // reading in the parameters we are currently guessing
     double f_srna = pdTheta[0];
     double k_on = pdTheta[1];
@@ -69,7 +68,7 @@ void Dx(double dT, double* pdX, double* pdTheta, double* pdDx)
     double delta_c = pdTheta[6];
     double mu = pdTheta[7];
     double beta = pdTheta[8];
-    double c = pdTheta[9];
+    double ratio = pdTheta[9];
 
     //determining the forcing
     double dT0 = 0;
@@ -111,42 +110,23 @@ void Dx(double dT, double* pdX, double* pdTheta, double* pdDx)
     
     // state equations
 
-    pdDx[0] = copies*a_tet/fu - mu*pdX[0] - delta_s*pdX[0] - k_on*pdX[0]*pdX[1] + k_off*pdX[2]; //sRNA
+    pdDx[0] = copies*a_tet/fu - (mu + delta_s)*pdX[0] - k_on*pdX[0]*pdX[1] + k_off*pdX[2]; //sRNA
 
-    pdDx[1] = copies*a_lac/fv - mu*pdX[1] - delta_m*pdX[1] - k_on*pdX[0]*pdX[1] + k_off*pdX[2]; //mRNA
+    pdDx[1] = copies*a_lac/fv - (mu + delta_m)*pdX[1] - k_on*pdX[0]*pdX[1] + k_off*pdX[2]; //mRNA
 
-    pdDx[2] = k_on*pdX[0]*pdX[1] - k_off*pdX[2] - k_hyb*pdX[2] - mu*pdX[2] - (delta_sm)*pdX[2]; //sRNA:mRNA_intermediate
+    pdDx[2] = k_on*pdX[0]*pdX[1] - (k_off + k_hyb)*pdX[2] - (mu + delta_m + delta_s)*pdX[2]; //sRNA:mRNA_intermediate
 
-    pdDx[3] = k_hyb*pdX[2] - mu*pdX[3] - (delta_c)*pdX[3]; //sRNA:mRNA_stable
+    pdDx[3] = k_hyb*pdX[2] - (mu + delta_c)*pdX[3]; //sRNA:mRNA_stable
 
-    pdDx[4] = beta*pdX[1] + f_srna*beta*pdX[3] - matur*pdX[4] - mu*pdX[4] - delta_g*pdX[4] - vz*pdX[4]/(Kz + pdX[4] + c*(pdX[5]-z0)); //GFP non-mature
+    pdDx[4] = beta*pdX[1] + f_srna*beta*pdX[3] - (matur + mu + delta_g)*pdX[4] - ( (vz*pdX[4])/(Kz + pdX[4] + (ratio*(pdX[5]-z0))) ); //GFP non-mature
 
-    pdDx[5] = (1/c)* (matur*pdX[4] - mu*(pdX[5] + delta_g)*c*(pdX[5]-z0) - (vz*c*(pdX[5]-z0))/(Kz + pdX[4] + c*(pdX[5]-z0))); //measured fluoresence
+    pdDx[5] = (1/ratio)* ( matur*pdX[4] - (mu + delta_g)*ratio*(pdX[5]-z0) - ( (vz*ratio*(pdX[5]-z0))/(Kz + pdX[4] + (ratio*(pdX[5]-z0))) ) ); //measured fluoresence
 }
 
 /* The gateway function */
 void mexFunction( int nlhs, mxArray *plhs[],
                   int nrhs, const mxArray *prhs[])
 {
-
-    /* check for proper number of arguments */
-    if(nrhs!=3) {
-        mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","Three inputs required.");
-    }
-    if(nlhs!=1) {
-        mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nlhs","One output required.");
-    }
-    /* make sure the first input argument is scalar */
-    if( !mxIsDouble(prhs[0]) || 
-         mxIsComplex(prhs[0]) ||
-         mxGetNumberOfElements(prhs[0])!=1 ) {
-        mexErrMsgIdAndTxt("MyToolbox:arrayProduct:notScalar","Input time must be a scalar.");
-    }
-    
-    /* check that number of rows in second input argument is 1 */
-    if(mxGetM(prhs[1])!=1) {
-        mexErrMsgIdAndTxt("MyToolbox:arrayProduct:notRowVector","Input must be a row vector.");
-    }
      
     /* get the value of the scalar input  */
     double dT = mxGetScalar(prhs[0]);
