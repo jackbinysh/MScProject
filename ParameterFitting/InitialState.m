@@ -1,5 +1,5 @@
 % a function which returns the fixed points of the model, given the values
-%of the parameters we use
+% of the parameters we use
 
 function x0 = InitialState(theta)
 
@@ -29,7 +29,7 @@ delta_s = theta(6);
 delta_c = theta(7);
 mu = theta(8);
 beta = theta(9);
-c = theta(10);
+ratio = theta(10);
 
 % using the analytical expression for the fixed point, return the state
 % values. see mathematica notebook for the expressions
@@ -43,12 +43,22 @@ as = N*a_tet/f_tet;
 ds = mu + delta_s;
 dsm = k_off + k_on + mu +delta_m + delta_s;
 
-m0 = (-1/(2*dm*(dsm-koff)*kon))*( (dm*ds*dsm -(am-as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
-s0 = (-1/(2*ds*(dsm-koff)*kon))*( (dm*ds*dsm +(am-as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
-y0 = (-1/(2*(dsm-koff)^2*kon))*( (dm*ds*dsm +(am+as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
-c0 = (k_hyb/(mu + delta_c))*y0;
+m = (-1/(2*dm*(dsm-koff)*kon))*( (dm*ds*dsm -(am-as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
+s = (-1/(2*ds*(dsm-koff)*kon))*( (dm*ds*dsm +(am-as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
+y = (-1/(2*(dsm-koff)^2*kon))*( (dm*ds*dsm +(am+as)*(dsm-koff)*kon + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-koff)*kon + (am-as)^2*(dsm -koff)^2*kon^2]) );
+c = (k_hyb/(mu + delta_c))*y0;
 
 % now solve for p and g
+% we can get an equation for (p+g) by adding the two eqns
+a = beta*m - f_s*beta*c;
+b = mu + delta_g;
+x = roots([b,(vz+Kz*b-a),-Kz*a]);
+p = a/(matur + mu + delta_g +(vz/Kz+x));
+g = x - p;
+z = z0 + (g/ratio);
+
+x0 = [s, m ,y, c , p , z ];
+
 
 
 
