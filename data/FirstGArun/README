@@ -1,0 +1,4 @@
+Results of first CMA-es run, on 23rd July, using scale set by previous parameter values, and with bounds just ad hoc set.
+
+Finds a curve that decently fits the data, but the residuals still show clear oscillations.
+
