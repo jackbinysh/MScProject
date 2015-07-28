@@ -1,4 +1,4 @@
-function [xmin,fmin,counteval,stopflag,out] = ParameterFit(theta,x0)
+function [xmin,fmin,counteval,stopflag,out] = ParameterFit(theta,x0,Dataset)
 
     % reading off the initial guess and the bounds
     BestGuess = [x0. BestGuess; theta.BestGuess];
@@ -17,9 +17,10 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(theta,x0)
     
     % setting some display etc. options
     opts.DispModulo = 1;
-    opts.LogTime = 5;
-    opts.PopSize = 100;
-    [xmin,fmin,counteval,stopflag,out] = cmaes('Error',BestGuess,Sigma,opts,Scale);
+    % constructing the struct of additional arguments to pass to the
+    % objective
+    Varargin = struct('Scale',Scale,'Dataset',Dataset);
+    [xmin,fmin,counteval,stopflag,out] = cmaes('Error',BestGuess,Sigma,opts,Varargin);
 end
 
 

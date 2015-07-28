@@ -1,19 +1,20 @@
-function Error = Error(p,Scale)
+function Error = Error(p,Varargin)
 
 % scaling the parameter vector up
+Scale = Varargin.Scale;
 p = p .* Scale;
 x0 = p(1:6);
 theta = p(7:end);
 
-% %reading in the experimental time series
- persistent Times ;
- if isempty(Times)
-    Times = csvread('../data/InitialExperimentalData/time16_8.csv');
+%reading in the experimental time series
+ persistent Times Data MeanFluorescence;
+ if (isempty(Times))
+    Dataset = Varargin.Dataset;
+    Times = csvread(strcat('../data/InitialExperimentalData/time',Dataset,'.csv'));
+    Data = csvread(strcat('../data/InitialExperimentalData/data',Dataset,'.csv'));
+    MeanFluorescence = mean(Data,2);
  end
- persistent Data;
- if isempty(Data)
-    Data = csvread('../data/InitialExperimentalData/data16_8.csv');
- end
+
 %MEX
 cd('./MexRibodynamics')
 ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
@@ -21,7 +22,5 @@ ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
 [T,Prediction] = ode23s(ModelWithParams,Times,x0);
 cd('..')
 
-% compute the difference between them
-Errors = Data - repmat(Prediction(:,6),1,length(Data));
-Error = sum(sum(Errors.^2,1)); 
+Error = sum((MeanFluorescence - Prediction(:,6)).^2);
 end
