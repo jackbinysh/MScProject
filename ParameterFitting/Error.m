@@ -1,10 +1,11 @@
-function Error = Error(p,Varargin)
+function Error = Error(theta,Varargin)
 
 % scaling the parameter vector up
 Scale = Varargin.Scale;
-p = p .* Scale;
-x0 = p(1:6);
-theta = p(7:end);
+theta = theta .* Scale;
+
+%get our initial state from the models fixed point, given the parameters
+x0 = InitialState(theta);
 
 %reading in the experimental time series
  persistent Times Data MeanFluorescence;

@@ -13,14 +13,5 @@ UpperBounds = [1e3;1e6;1e8;100;100;100;100;10;1;10000];
 Initialtheta = table(LowerBounds,BestGuess,UpperBounds,'RowNames',RowNames,'VariableNames',VariableNames);
 clear RowNames VariableNames LowerBounds UpperBounds BestGuess
 
-% create a table containing bounds, and best guesses, for initial state
-RowNames = {'s0';'m0';'s_m0';'c0';'p0';'z0'};
-VariableNames = {'LowerBounds','BestGuess','UpperBounds'};
-LowerBounds = [0.1;0.1;0.1;0.1;0.1;9];
-BestGuess = [117.4994; 987.8673;234.1104;751.4283;0.2720;9.5530];
-UpperBounds = [1e3;1e3;1e3;1e3;1e3;11];
-Initialx0 = table(LowerBounds,BestGuess,UpperBounds,'RowNames',RowNames,'VariableNames',VariableNames);
-clear RowNames VariableNames LowerBounds UpperBounds BestGuess
-
 %% plug into the wrapper function for the fitter
- [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Initialx0,Dataset);
+ [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Dataset);
