@@ -11,8 +11,8 @@ x0 = InitialState(theta);
  persistent Times Data MeanFluorescence;
  if (isempty(Times))
     Dataset = Varargin.Dataset;
-    Times = csvread(strcat('../data/InitialExperimentalData/time',Dataset,'.csv'));
-    Data = csvread(strcat('../data/InitialExperimentalData/data',Dataset,'.csv'));
+    Times = csvread(strcat('./data/InitialExperimentalData/time',Dataset,'.csv'));
+    Data = csvread(strcat('./data/InitialExperimentalData/data',Dataset,'.csv'));
     MeanFluorescence = mean(Data,2);
  end
 

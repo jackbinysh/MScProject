@@ -53,15 +53,16 @@ c = (k_hyb/(mu + delta_c))*y;
 % we can get an equation for (p+g) by adding the two eqns
 a = beta*m + f_srna*beta*c;
 b = mu + delta_g;
-x = roots([b,(vz+Kz*b-a),-Kz*a]);
+root = roots([b,(vz+Kz*b-a),-Kz*a]);
 %just get the positive root
-x = x(x>0);
-p = a/(matur + mu + delta_g +(vz/(Kz+x)));
-g = x - p;
+root = root(root>0);
+p = a/(matur + mu + delta_g +(vz/(Kz+root)));
+g = root - p;
 z = z0 + (g/ratio);
 x0 = [s, m ,y, c , p , z ];
 
 % a bit of code to check we really are getting the fixed point
+%x = x0;
 %copies*a_tet/f_tet - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
 %copies*a_lac/f_lac - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
 %k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3) %sRNA:mRNA_intermediate

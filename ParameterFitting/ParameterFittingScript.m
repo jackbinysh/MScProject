@@ -14,4 +14,4 @@ Initialtheta = table(LowerBounds,BestGuess,UpperBounds,'RowNames',RowNames,'Vari
 clear RowNames VariableNames LowerBounds UpperBounds BestGuess
 
 %% plug into the wrapper function for the fitter
- [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Dataset);
+[xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Dataset);
