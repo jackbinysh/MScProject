@@ -14,7 +14,6 @@ Kz = 75; %nM (dissociation constant of enzymatic degradation) (Hersch, PNAS, 200
 % other parameters
 z0 = 9; % experimentally determined
 copies = 300; %(plasmid copy number)
-delta_sm = 0; %1/min
 
 % reading in the parameters we are currently guessing
 f_srna = theta(1);
