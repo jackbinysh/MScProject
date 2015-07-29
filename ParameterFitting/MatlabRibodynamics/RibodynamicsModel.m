@@ -17,16 +17,16 @@ copies = 300; %(plasmid copy number)
 delta_sm = 0; %1/min
 
 % reading in the parameters we are currently guessing
-f_srna = theta{'f_srna',1};
-k_on = theta{'k_on',1};
-k_off = theta{'k_off',1};
-k_hyb = theta{'k_hyb',1};
-delta_m = theta{'delta_m',1};
-delta_s = theta{'delta_s',1};
-delta_c = theta{'delta_c',1};
-mu = theta{'mu',1};
-beta = theta{'beta',1};
-c = theta{'c',1};
+f_srna = theta(1);
+k_on = theta(2);
+k_off = theta(3);
+k_hyb = theta(4);
+delta_m = theta(5);
+delta_s = theta(6);
+delta_c = theta(7);
+mu = theta(8);
+beta = theta(9);
+c = theta(10);
 
     %%% determining the forcing
     t0=0;
@@ -49,13 +49,11 @@ c = theta{'c',1};
 
     dx(2) = copies*a_lac/fv - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3); %mRNA
 
-    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_sm)*x(3); %sRNA:mRNA_intermediate
+    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3); %sRNA:mRNA_intermediate
 
     dx(4) = k_hyb*x(3) - mu*x(4) - (delta_c)*x(4); %sRNA:mRNA_stable
-
-    Translation_Rate = beta*x(2) + f_srna*beta*x(4);
-
-    dx(5) = Translation_Rate - matur*x(5) - mu*x(5) - delta_g*x(5) - vz*x(5)/(Kz + x(5) + c*(x(6)-z0)); %GFP non-mature
+ 
+    dx(5) = beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + c*(x(6)-z0)); %GFP non-mature
 
     dx(6) = (1/c)* ( matur*x(5) - (mu + delta_g)*c*(x(6)-z0) - ((vz*c*(x(6)-z0))/(Kz + x(5) + c*(x(6)-z0))) ); %measured fluoresence
 

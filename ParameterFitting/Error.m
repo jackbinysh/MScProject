@@ -17,10 +17,10 @@ x0 = InitialState(theta);
  end
 
 %MEX
-cd('./MexRibodynamics')
+cd('./MatlabRibodynamics')
 ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
 % get the model prediction
-[T,Prediction] = ode23s(ModelWithParams,Times,x0);
+[T,Prediction] = ode15s(ModelWithParams,Times,x0);
 cd('..')
 
 Error = sum((MeanFluorescence - Prediction(:,6)).^2);
