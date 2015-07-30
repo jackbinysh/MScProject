@@ -1,4 +1,4 @@
-function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,InitialthetaLB,InitialthetaUB,Dataset)
+function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,InitialthetaLB,InitialthetaUB,Dataset,RunNumber)
 
     % reading off the initial guess and the bounds
     opts.LBounds = InitialthetaLB;  
@@ -12,7 +12,7 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Initialt
     Initialtheta = Initialtheta./Scale;
     
     % constructing the struct of additional arguments to pass to the objective
-    Varargin = struct('Scale',Scale,'Dataset',Dataset);
+    Varargin = struct('Scale',Scale,'Dataset',Dataset,'RunNumber',RunNumber);
     
     % setting some display etc. options
     opts.DispModulo = 1;

@@ -8,12 +8,18 @@ theta = theta .* Scale;
 x0 = InitialState(theta);
 
 %reading in the experimental time series
- persistent Times Data MeanFluorescence;
+ persistent Times Data Fluorescence;
  if (isempty(Times))
-    Dataset = Varargin.Dataset;
-    Times = csvread(strcat('./data/InitialExperimentalData/time',Dataset,'.csv'));
-    Data = csvread(strcat('./data/InitialExperimentalData/data',Dataset,'.csv'));
-    MeanFluorescence = mean(Data,2);
+    Times = csvread(strcat('./data/InitialExperimentalData/time',Varargin.Dataset,'.csv'));
+    Data = csvread(strcat('./data/InitialExperimentalData/data',Varargin.Dataset,'.csv'));
+    
+    %if we've specified a specific run we are interested in, thats our data
+    if(~isempty(Varargin.RunNumber))
+        Fluorescence = Data(:,Varargin.RunNumber);
+    else
+    % if its empty, take the mean of all the data
+        Fluorescence = mean(Data,2);
+    end
  end
 
 %MEX
@@ -23,5 +29,5 @@ ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
 [T,Prediction] = ode15s(ModelWithParams,Times,x0);
 cd('..')
 
-Error = sum((MeanFluorescence - Prediction(:,6)).^2);
+Error = sum((Fluorescence - Prediction(:,6)).^2);
 end
