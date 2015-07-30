@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=1,pvmem=256mb,walltime=08:00:00
+#PBS -V
+#PBS -t 1-1000
+
+cd $PBS_O_WORKDIR
+
+echo "I am subjob number $PBS_ARRAYID"
+./main.exe  > ${PBS_ARRAYID}.out
