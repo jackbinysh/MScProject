@@ -1,3 +1,6 @@
+clc; clear variables;
+format long g;
+
 %% Some bits and pieces of code for plotting
 % the experimental data
 Times = csvread('./data/InitialExperimentalData/time16_8.csv');
@@ -7,10 +10,10 @@ load('variablescmaes.mat');
 % remember we have scaled this by our initial guess vector. So we scale
 % back
 
-theta = out.solutions.recentbest.x .* varargin{1}.Scale;
+theta = bestever.x .* varargin{1}.Scale;
 x0 = InitialState(theta); 
 
-%MEX
+%MATLAB
 cd('./MatlabRibodynamics')
 ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
 % get the model prediction
@@ -23,3 +26,6 @@ plot(Times,Data); hold on;
 plot(Times,Prediction(:,6),'linewidth', 3.5);
 
 % the residuals
+Residuals = Data - repmat(Prediction(:,6),1,length(Data));
+hold off
+plot(T,Residuals);
