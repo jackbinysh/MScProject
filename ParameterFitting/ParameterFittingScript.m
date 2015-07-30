@@ -5,13 +5,24 @@ format long g;
 Dataset = '16_8';
 
 % decide which run we use: if we leave it empty, an average is taken
-RunNumber = 1;
 
-% Initial Guess and bounds
+% Initial Guess and bounds. Thesse  are currently set to the best guess
+% from GArun_30_07_2015.
 % list of variables {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
-InitialthetaLB = [10;10;10;0.001;0.1;0.01;0.01;0.0001;0.0001;10];
-Initialtheta = [98.0521504318544;560429.992864335;29126800.1065540;77.1270546961427;50.8028377485244;0.0817539315524263;61.7708875939270;0.00242232706183576;0.0217868661308902;421.538749015539];
-InitialthetaUB = [1e3;1e6;1e8;100;100;100;100;10;1;10000];
+InitialthetaLB = [1;1000;100000;1;1;1;1;0.00001;0.0001;1];
+% from GArun_30_07_2015.
+Initialtheta = [ 51.6568541032315
+          333746.163658966
+          35923992.3356378
+          78.0092377634537
+          52.5614560200565
+          40.2395554589868
+          70.8626480270463
+        0.0179550155596016
+         0.184074335687385
+          401.122143648984 ];
+
+InitialthetaUB = [1e3;1e6;1e8;1000;1000;1000;1000;1;10;10000];
 
 % plug into the wrapper function for the fitter
 [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta, InitialthetaLB, InitialthetaUB, Dataset,RunNumber);
