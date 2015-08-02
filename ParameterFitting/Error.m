@@ -24,7 +24,7 @@ x0 = InitialState(theta);
 
 %MEX
 cd('./MatlabRibodynamics')
-ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta);
+ModelWithParams = @(t,x) RibodynamicsModel(t,x', theta,Varargin.Dataset);
 % get the model prediction
 [T,Prediction] = ode15s(ModelWithParams,Times,x0);
 cd('..')

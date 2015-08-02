@@ -5,6 +5,7 @@ format long g;
 Dataset = '16_8';
 
 % decide which run we use: if we leave it empty, an average is taken
+RunNumber = [];
 
 % Initial Guess and bounds. Thesse  are currently set to the best guess
 % from GArun_30_07_2015.
