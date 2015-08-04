@@ -31,29 +31,33 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
 
     %%% determining the forcing
     t0=0;
-    if t<t0,
-        u=0;
-        v=0;
+    if t<t0
+        Atc=0;
+        Iptg=0;
     else
-        u = atc_input(t-t0,dataset); %aTc
-        v = iptg_input(t-t0,dataset); %IPTG
+        Atc = atc_input(t-t0,dataset); %aTc
+        Iptg = iptg_input(t-t0,dataset); %IPTG
     end
     
     % we assume a non zero concentration of atc and iptg saturates the fold
     % so these are just boolean, on/off, either totally repressed or
     % totally unrepressed
-    if u==0, fu = f_tet; %aTc
-    else fu = 1;
-    end;
-    if v ==0, fv = f_lac; %IPTG
-    else fv = 1;
+    if Atc==0
+        fAtc = f_tet; %aTc
+    else
+        fAtc = 1;
+    end    
+    if Iptg == 0
+        fIptg = f_lac; %IPTG
+    else
+        fIptg = 1;
     end;
     
     %%% state equations
 
-    dx(1) = copies*a_tet/fu - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3); %sRNA
+    dx(1) = copies*a_tet/fAtc - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3); %sRNA
 
-    dx(2) = copies*a_lac/fv - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3); %mRNA
+    dx(2) = copies*a_lac/fIptg - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3); %mRNA
 
     dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3); %sRNA:mRNA_intermediate
 
