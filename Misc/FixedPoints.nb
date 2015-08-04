@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     24594,        695]
-NotebookOptionsPosition[     23944,        668]
-NotebookOutlinePosition[     24277,        683]
-CellTagsIndexPosition[     24234,        680]
+NotebookDataLength[     29356,        844]
+NotebookOptionsPosition[     28474,        810]
+NotebookOutlinePosition[     28807,        825]
+CellTagsIndexPosition[     28764,        822]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -664,6 +664,148 @@ Cell[BoxData[
  CellChangeTimes->{{3.647670970430276*^9, 3.647671007120756*^9}, {
   3.647671082110663*^9, 3.6476710855670357`*^9}, {3.64767112289503*^9, 
   3.647671128409358*^9}, {3.6476712007491713`*^9, 3.6476712261625557`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+in a simplification of the model, we set delta_c = delta_m, and delta_sm = \
+delta_m (rather than delta_s + delta_m). This gives the jacobian
+\
+\>", "Text",
+ CellChangeTimes->{{3.6477067520990467`*^9, 3.647706794962751*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global `*\>\"", "]"}]], "Input",
+ CellChangeTimes->{3.647706799786674*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"vec", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"as", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"mu", "+", "ds"}], ")"}], "*", "s"}], "-", 
+      RowBox[{"kon", "*", "s", "*", "m"}], "+", 
+      RowBox[{"koff", "*", "y"}]}], " ", ",", 
+     RowBox[{"am", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"mu", "+", "dm"}], ")"}], "*", "m"}], " ", "-", " ", 
+      RowBox[{"kon", "*", "s", "*", "m"}], "+", 
+      RowBox[{"koff", "*", "y"}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"kon", "*", "s", "*", "m"}], "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"mu", " ", "+", "dm", " ", "+", "kon", "+", "koff"}], ")"}], 
+       "*", "y"}]}], ",", 
+     RowBox[{
+      RowBox[{"khyb", "*", "y"}], " ", "-", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"mu", " ", "+", "dm"}], ")"}], "*", "c"}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"b", "*", "m"}], " ", "+", 
+      RowBox[{"fs", "*", "b", "*", "c"}], " ", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"gamma", " ", "+", " ", "mu", " ", "+", "dg"}], ")"}], "*", 
+       "p"}], " ", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"vz", "*", "p"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"kz", "+", "p", "+", "g"}], ")"}]}]}], ",", 
+     RowBox[{
+      RowBox[{"gamma", "*", "p"}], "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"mu", " ", "+", "dg"}], ")"}], "*", "g"}], " ", "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"vz", "*", "g"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"kz", "+", "p", "+", "g"}], ")"}]}]}]}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"variables", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{"s", ",", "m", ",", "y", ",", "c", ",", "p", ",", "g"}], "}"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6477068187747726`*^9, 3.647706823140547*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"D", "[", 
+  RowBox[{"vec", ",", 
+   RowBox[{"{", "variables", "}"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "ds"}], "-", 
+      RowBox[{"kon", " ", "m"}], "-", "mu"}], ",", 
+     RowBox[{
+      RowBox[{"-", "kon"}], " ", "s"}], ",", "koff", ",", "0", ",", "0", ",", 
+     "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "kon"}], " ", "m"}], ",", 
+     RowBox[{
+      RowBox[{"-", "dm"}], "-", "mu", "-", 
+      RowBox[{"kon", " ", "s"}]}], ",", "koff", ",", "0", ",", "0", ",", 
+     "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"kon", " ", "m"}], ",", 
+     RowBox[{"kon", " ", "s"}], ",", 
+     RowBox[{
+      RowBox[{"-", "dm"}], "-", "koff", "-", "kon", "-", "mu"}], ",", "0", 
+     ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "khyb", ",", 
+     RowBox[{
+      RowBox[{"-", "dm"}], "-", "mu"}], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "b", ",", "0", ",", 
+     RowBox[{"b", " ", "fs"}], ",", 
+     RowBox[{
+      RowBox[{"-", "dg"}], "-", "gamma", "-", "mu", "+", 
+      FractionBox[
+       RowBox[{"p", " ", "vz"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"g", "+", "kz", "+", "p"}], ")"}], "2"]], "-", 
+      FractionBox["vz", 
+       RowBox[{"g", "+", "kz", "+", "p"}]]}], ",", 
+     FractionBox[
+      RowBox[{"p", " ", "vz"}], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"g", "+", "kz", "+", "p"}], ")"}], "2"]]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", 
+     RowBox[{"gamma", "+", 
+      FractionBox[
+       RowBox[{"g", " ", "vz"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"g", "+", "kz", "+", "p"}], ")"}], "2"]]}], ",", 
+     RowBox[{
+      RowBox[{"-", "dg"}], "-", "mu", "+", 
+      FractionBox[
+       RowBox[{"g", " ", "vz"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"g", "+", "kz", "+", "p"}], ")"}], "2"]], "-", 
+      FractionBox["vz", 
+       RowBox[{"g", "+", "kz", "+", "p"}]]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.647706833778913*^9}]
 }, Open  ]]
 },
 WindowSize->{1680, 1026},
@@ -696,6 +838,13 @@ Cell[19011, 520, 171, 6, 77, "Text"],
 Cell[CellGroupData[{
 Cell[19207, 530, 2411, 67, 187, "Input"],
 Cell[21621, 599, 2307, 66, 82, "Output"]
+}, Open  ]],
+Cell[23943, 668, 234, 5, 55, "Text"],
+Cell[24180, 675, 116, 2, 32, "Input"],
+Cell[24299, 679, 1897, 55, 77, "Input"],
+Cell[CellGroupData[{
+Cell[26221, 738, 111, 3, 32, "Input"],
+Cell[26335, 743, 2123, 64, 82, "Output"]
 }, Open  ]]
 }
 ]
