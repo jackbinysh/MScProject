@@ -39,10 +39,8 @@ function Atc = atc_input(t,dataset)
     end
    
     p=p1+p2;
-    tp = mod(t-t0,p);   
-    if tp <= p1
-        Atc = 2; %ng/mL
-    else
-        Atc = 0; %ng/mL
-    end        
+    tp = mod(t-t0,p); 
+    
+    Atc(tp <= p1) = 2; %ng/mL
+    Atc(tp > p1) = 0; %ng/mL     
 end
