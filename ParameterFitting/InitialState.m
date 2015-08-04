@@ -1,9 +1,8 @@
 % a function which returns the fixed points of the model, given the values
-% of the parameters we use
-% see the mathematica notebook FixedPoint.nb for how these have been
+% of the parameters we use . See the mathematica notebook FixedPoint.nb for how these have been
 % computed
 
-function x0 = InitialState(theta)
+function x0 = InitialState(theta,Atc,Iptg)
 
 % the list of known parameter values
 %PLtetO1 and PLlacO1 parameters
@@ -32,15 +31,23 @@ mu = theta(8);
 beta = theta(9);
 ratio = theta(10);
 
+% set whether atc or iptg have been turned on at a constant level
+if Atc==0, fAtc = f_tet; %aTc
+else fAtc = 1;
+end;
+if Iptg ==0, fIptg = f_lac; %IPTG
+else fIptg = 1;
+end;
+
 % using the analytical expression for the fixed point, return the state
 % values. see mathematica notebook for the expressions
 % note this solution makes assumptions on parameter ranges.
 %Assumptions -> {am > 0 && dm > 0 && k_on > 0 && k_off > 0 && as > 0 && 
 %    ds > 0 && dsm > 0 && dsm > k_off && m > 0 && s > 0 && y > 0}]
 
-am = copies*a_lac/f_lac;
+am = copies*a_lac/fIptg;
 dm = mu + delta_m;
-as = copies*a_tet/f_tet;
+as = copies*a_tet/fAtc;
 ds = mu + delta_s;
 dsm = k_off + k_hyb + mu +delta_m + delta_s;
 
@@ -63,8 +70,8 @@ x0 = [s, m ,y, c , p , z ];
 
 % a bit of code to check we really are getting the fixed point
 %x = x0;
-%copies*a_tet/f_tet - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
-%copies*a_lac/f_lac - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
+%copies*a_tet/f_u - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
+%copies*a_lac/f_v - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
 %k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3) %sRNA:mRNA_intermediate
 %k_hyb*x(3) - mu*x(4) - (delta_c)*x(4) %sRNA:mRNA_stable
 %beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + g) %GFP non-mature
