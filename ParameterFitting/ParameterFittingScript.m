@@ -9,7 +9,7 @@ RunNumber = [];
 
 % Initial Guess and bounds. Thesse  are currently set to the best guess
 % from GArun_30_07_2015.
-% list of variables {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
+% list of variables {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'mu';'beta';'c'};
 InitialthetaLB = [1;1000;100000;1;1;1;1;0.00001;0.0001;1];
 % from GArun_30_07_2015.
 Initialtheta = [ 51.6568541032315
@@ -18,7 +18,6 @@ Initialtheta = [ 51.6568541032315
           78.0092377634537
           52.5614560200565
           40.2395554589868
-          70.8626480270463
         0.0179550155596016
          0.184074335687385
           401.122143648984 ];

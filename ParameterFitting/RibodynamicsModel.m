@@ -17,17 +17,16 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
     copies = 300; %(plasmid copy number)
 
     % reading in the parameters we are currently guessing
-    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
+    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'mu';'beta';'c'};
     f_srna = theta(1);
     k_on = theta(2);
     k_off = theta(3);
     k_hyb = theta(4);
     delta_m = theta(5);
     delta_s = theta(6);
-    delta_c = theta(7);
-    mu = theta(8);
-    beta = theta(9);
-    c = theta(10);
+    mu = theta(7);
+    beta = theta(8);
+    c = theta(9);
 
     % determining the forcing
     t0=0;
@@ -59,9 +58,9 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
 
     dx(2) = copies*a_lac/fIptg - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3); %mRNA
 
-    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3); %sRNA:mRNA_intermediate
+    dx(3) = k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - delta_m*x(3); %sRNA:mRNA_intermediate
 
-    dx(4) = k_hyb*x(3) - mu*x(4) - (delta_c)*x(4); %sRNA:mRNA_stable
+    dx(4) = k_hyb*x(3) - mu*x(4) - (delta_m)*x(4); %sRNA:mRNA_stable
  
     dx(5) = beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + c*(x(6)-z0)); %GFP non-mature
 

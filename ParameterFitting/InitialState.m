@@ -26,10 +26,9 @@ k_off = theta(3);
 k_hyb = theta(4);
 delta_m = theta(5);
 delta_s = theta(6);
-delta_c = theta(7);
-mu = theta(8);
-beta = theta(9);
-ratio = theta(10);
+mu = theta(7);
+beta = theta(8);
+ratio = theta(9);
 
 % set whether atc or iptg have been turned on at a constant level
 if Atc==0, fAtc = f_tet; %aTc
@@ -49,12 +48,12 @@ am = copies*a_lac/fIptg;
 dm = mu + delta_m;
 as = copies*a_tet/fAtc;
 ds = mu + delta_s;
-dsm = k_off + k_hyb + mu +delta_m + delta_s;
+dsm = k_off + k_hyb + mu +delta_m;
 
 m = (1/(2*dm*(dsm-k_off)*k_on))*( -dm*ds*dsm +(am-as)*(dsm-k_off)*k_on + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
 s = (1/(2*ds*(dsm-k_off)*k_on))*( -dm*ds*dsm - (am-as)*(dsm-k_off)*k_on + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
 y = (1/(2*(dsm-k_off)^2*k_on))*( dm*ds*dsm +(am+as)*(dsm-k_off)*k_on - sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
-c = (k_hyb/(mu + delta_c))*y;
+c = (k_hyb/(mu + delta_s))*y;
 
 % now solve for p and g
 % we can get an equation for (p+g) by adding the two eqns

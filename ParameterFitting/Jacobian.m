@@ -25,17 +25,16 @@ function J = Jacobian(y,t)
 
     % reading in the parameters we are currently guessing
     % order should be 
-    %{'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
+    %{'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'mu';'beta';'c'};
     f_srna = theta(1);
     k_on = theta(2);
     k_off = theta(3);
     k_hyb = theta(4);
     delta_m = theta(5);
     delta_s = theta(6);
-    delta_c = theta(7);
-    mu = theta(8);
-    beta = theta(9);
-    ratio = theta(10);
+    mu = theta(7);
+    beta = theta(8);
+    ratio = theta(9);
 
     % compute the jacobian
 
@@ -55,7 +54,7 @@ function J = Jacobian(y,t)
 
     J(3,1) = k_on*m;
     J(3,2) = k_on*s;
-    J(3,3) = -(k_off+k_on+mu+delta_m+delta_s);
+    J(3,3) = -(k_off+k_on+mu+delta_m);
     J(3,4) = 0;
     J(3,5) = 0;
     J(3,6) = 0;
@@ -63,7 +62,7 @@ function J = Jacobian(y,t)
     J(4,1) = 0;
     J(4,2) = 0;
     J(4,3) = k_hyb;
-    J(4,4) = -(mu + delta_c);
+    J(4,4) = -(mu + delta_m);
     J(4,5) = 0;
     J(4,6) = 0;
 
