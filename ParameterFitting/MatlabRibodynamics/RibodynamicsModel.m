@@ -1,6 +1,7 @@
 function dx = RibodynamicsModel(t,x, theta,dataset)
 
     % the list of known parameter values
+    
     %PLtetO1 and PLlacO1 parameters
     f_tet = 2535; %dimensionless (fold) (Lutz and Bujard, NAR, 1997)
     f_lac = 620; %dimensionless (fold) (Lutz and Bujard, NAR, 1997)
@@ -16,8 +17,7 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
     copies = 300; %(plasmid copy number)
 
     % reading in the parameters we are currently guessing
-    % order should be 
-    %{'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
+    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'delta_c';'mu';'beta';'c'};
     f_srna = theta(1);
     k_on = theta(2);
     k_off = theta(3);
@@ -29,7 +29,7 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
     beta = theta(9);
     c = theta(10);
 
-    %%% determining the forcing
+    % determining the forcing
     t0=0;
     if t<t0
         Atc=0;
