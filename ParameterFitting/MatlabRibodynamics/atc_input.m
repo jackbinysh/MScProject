@@ -1,4 +1,4 @@
-function u = atc_input(t,dataset)
+function Atc = atc_input(t,dataset)
 
     switch dataset
         case '16_8'
@@ -41,8 +41,8 @@ function u = atc_input(t,dataset)
     p=p1+p2;
     tp = mod(t-t0,p);   
     if tp <= p1
-        u = 2; %ng/mL
+        Atc = 2; %ng/mL
     else
-        u = 0; %ng/mL
+        Atc = 0; %ng/mL
     end        
 end
