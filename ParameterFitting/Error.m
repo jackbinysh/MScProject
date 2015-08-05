@@ -12,8 +12,8 @@ x0 = InitialState(theta,0,1);
 %reading in the experimental time series
  persistent Times Data Fluorescence;
  if (isempty(Times))
-    Times = csvread(strcat('./data/InitialExperimentalData/time',Dataset,'.csv'));
-    Data = csvread(strcat('./data/InitialExperimentalData/data',Dataset,'.csv'));
+    Times = csvread(strcat('./data/CleanedData/time',Dataset,'.csv'));
+    Data = csvread(strcat('./data/CleanedData/data',Dataset,'.csv'));
     
     %if we've specified a specific run we are interested in, thats our data
     if(~isempty(Varargin.RunNumber))
@@ -28,7 +28,7 @@ x0 = InitialState(theta,0,1);
 % step over a period of oscillation by setting a maximum step size.
 % http://uk.mathworks.com/help/matlab/ref/odeset.html
 
-options = odeset('Jacobian',@jacobian,'MaxStep',30); 
+options = odeset('Jacobian',@Jacobian,'MaxStep',30); 
 [T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
 
 Error = sum((Fluorescence - Prediction(:,6)).^2);
