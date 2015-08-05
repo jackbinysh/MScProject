@@ -1,11 +1,9 @@
-function J = Jacobian(y,t)
+function J = Jacobian(t,y,theta,Dataset)
 
     % the state variables
     s = y(1);
-    m = y(2)
-    s:m = y(3)
-    c = y(4)
-    p = y(5)
+    m = y(2);
+    p = y(5);
     z = y(6);
     
     % the list of known parameter values
@@ -33,14 +31,14 @@ function J = Jacobian(y,t)
     delta_m = theta(5);
     delta_s = theta(6);
     mu = theta(7);
-    beta = theta(8);
+    Beta = theta(8);
     ratio = theta(9);
 
     % compute the jacobian
 
     J(1,1) = -(mu + delta_s) - k_on*m ;
     J(1,2) = - k_on*s ;
-    J(1,3) = K_off;
+    J(1,3) = k_off;
     J(1,4) = 0;
     J(1,5) = 0;
     J(1,6) = 0;
@@ -54,7 +52,7 @@ function J = Jacobian(y,t)
 
     J(3,1) = k_on*m;
     J(3,2) = k_on*s;
-    J(3,3) = -(k_off+k_on+mu+delta_m);
+    J(3,3) = -(k_off+k_hyb+mu+delta_m);
     J(3,4) = 0;
     J(3,5) = 0;
     J(3,6) = 0;
@@ -69,16 +67,16 @@ function J = Jacobian(y,t)
     J(5,1) = 0;
     J(5,2) = Beta;
     J(5,3) = 0;
-    J(5,4) = f_SRNa * Beta;
+    J(5,4) = f_srna * Beta;
     J(5,5) = -(matur + mu +delta_g) -(vz/(Kz + ratio*(z-z0) + p)) + (vz*p)*(1/(Kz + ratio*(z-z0) + p))^2;
-    J(5,6) = (v_z*p)*(1/(K_z + g + p))^2;
+    J(5,6) = ratio*( (vz*p)*(1/(Kz + ratio*(z-z0) + p))^2 );
 
     J(6,1) = 0;
     J(6,2) = 0;
     J(6,3) = 0;
     J(6,4) = 0;
-    J(6,5) = (1/ratio) * ( matur  + (vz*ratio*(z-z0))(1/(Kz + ratio*(z-z0) + p))^2 );
-    J(6,6) = (1/ratio) *  ( - (mu + delta_g) - (vz/(Kz + ratio*(z-z0) + p)) + (vz*ratio*(z-z0))*(1/(Kz + ratio*(z-z0) + p))^2 );
+    J(6,5) = (1/ratio) * ( matur  + (vz*ratio*(z-z0))*(1/(Kz + ratio*(z-z0) + p))^2 );
+    J(6,6) = (1/ratio) *  ( - ratio*(mu + delta_g) - (vz*ratio/(Kz + ratio*(z-z0) + p)) + (vz*(ratio^2)*(z-z0))*(1/(Kz + ratio*(z-z0) + p))^2 );
 
 end
 
