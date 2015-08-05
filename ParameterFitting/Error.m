@@ -30,7 +30,6 @@ x0 = InitialState(theta,0,1);
 
 options = odeset('Jacobian',@jacobian,'MaxStep',30); 
 [T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
-cd('..')
 
 Error = sum((Fluorescence - Prediction(:,6)).^2);
 end
