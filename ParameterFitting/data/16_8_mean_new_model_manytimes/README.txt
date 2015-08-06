@@ -1,0 +1,1 @@
+06/08/2015. Using the new model (one with delta_c removed), fit the average 20 different times. Do this to see the spread in values of theta, the values of the objective, and eyeball how good the fit is.
