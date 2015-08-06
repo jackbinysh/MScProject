@@ -53,7 +53,7 @@ dsm = k_off + k_hyb + mu +delta_m;
 m = (1/(2*dm*(dsm-k_off)*k_on))*( -dm*ds*dsm +(am-as)*(dsm-k_off)*k_on + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
 s = (1/(2*ds*(dsm-k_off)*k_on))*( -dm*ds*dsm - (am-as)*(dsm-k_off)*k_on + sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
 y = (1/(2*(dsm-k_off)^2*k_on))*( dm*ds*dsm +(am+as)*(dsm-k_off)*k_on - sqrt(dm^2*ds^2*dsm^2 + 2*(am+as)*dm*ds*dsm*(dsm-k_off)*k_on + (am-as)^2*(dsm -k_off)^2*k_on^2) );
-c = (k_hyb/(mu + delta_s))*y;
+c = (k_hyb/(mu + delta_m))*y;
 
 % now solve for p and g
 % we can get an equation for (p+g) by adding the two eqns
@@ -67,15 +67,15 @@ g = root - p;
 z = z0 + (g/ratio);
 x0 = [s, m ,y, c , p , z ];
 
-% a bit of code to check we really are getting the fixed point
-%x = x0;
-%copies*a_tet/f_u - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
-%copies*a_lac/f_v - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
-%k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) - (delta_s + delta_m)*x(3) %sRNA:mRNA_intermediate
-%k_hyb*x(3) - mu*x(4) - (delta_c)*x(4) %sRNA:mRNA_stable
-%beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + g) %GFP non-mature
-%matur*x(5) - (mu + delta_g)*g - ((vz*g)/(Kz + x(5) + g)) %measured fluoresence
-end
+% %%a bit of code to check we really are getting the fixed point
+% x = x0;
+% copies*a_tet/fAtc - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
+% copies*a_lac/fIptg - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
+% k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) -  delta_m*x(3) %sRNA:mRNA_intermediate
+% k_hyb*x(3) - mu*x(4) - (delta_m)*x(4) %sRNA:mRNA_stable
+% beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + g) %GFP non-mature
+% matur*x(5) - (mu + delta_g)*g - ((vz*g)/(Kz + x(5) + g)) %measured fluoresence
+% end
 
 
 
