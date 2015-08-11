@@ -17,16 +17,17 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
     copies = 300; %(plasmid copy number)
 
     % reading in the parameters we are currently guessing
-    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'mu';'beta';'c'};
+    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'k_matur';'delta_m';'delta_s';'mu';'beta';'c'};
     f_srna = theta(1);
     k_on = theta(2);
     k_off = theta(3);
     k_hyb = theta(4);
-    delta_m = theta(5);
-    delta_s = theta(6);
-    mu = theta(7);
-    beta = theta(8);
-    c = theta(9);
+    k_matur = theta(5);
+    delta_m = theta(6);
+    delta_s = theta(7);
+    mu = theta(8);
+    beta = theta(9);
+    c = theta(10);
 
     % determining the forcing
     t0=0;

@@ -1,10 +1,10 @@
 function J = Jacobian(t,y,theta,Dataset)
 
     % the state variables
-    s = y(1);
-    m = y(2);
-    p = y(5);
-    z = y(6);
+    s = y(2);
+    m = y(3);
+    p = y(6);
+    z = y(7);
     
     % the list of known parameter values
     %PLtetO1 and PLlacO1 parameters
@@ -22,17 +22,17 @@ function J = Jacobian(t,y,theta,Dataset)
     copies = 300; %(plasmid copy number)
 
     % reading in the parameters we are currently guessing
-    % order should be 
-    %{'f_srna';'k_on';'k_off';'k_hyb';'delta_m';'delta_s';'mu';'beta';'c'};
+    % order should be {'f_srna';'k_on';'k_off';'k_hyb';'k_matur';'delta_m';'delta_s';'mu';'beta';'c'};
     f_srna = theta(1);
     k_on = theta(2);
     k_off = theta(3);
     k_hyb = theta(4);
-    delta_m = theta(5);
-    delta_s = theta(6);
-    mu = theta(7);
-    Beta = theta(8);
-    ratio = theta(9);
+    k_matur = theta(5);
+    delta_m = theta(6);
+    delta_s = theta(7);
+    mu = theta(8);
+    beta = theta(9);
+    ratio = theta(10);
 
     % compute the jacobian
     
@@ -45,16 +45,16 @@ function J = Jacobian(t,y,theta,Dataset)
     J(1,7) = 0;
     
     J(2,1) = k_matur;
-    J(2,2) = - (delta_s + mu) - k_on*m
-    J(2,3) = -k_on*s
+    J(2,2) = - (delta_s + mu) - k_on*m;
+    J(2,3) = -k_on*s;
     J(2,4) = k_off;
     J(2,5) = 0;
     J(2,6) = 0;
     J(2,7) =0;
     
-    J(3,1) = 0
+    J(3,1) = 0;
     J(3,2) = -k_on*m;
-    J(3,3) = (mu + delta_m) -k_on*s;
+    J(3,3) = -(mu + delta_m) -k_on*s;
     J(3,4) = k_off;
     J(3,5) = 0;
     J(3,6) = 0;
@@ -70,17 +70,17 @@ function J = Jacobian(t,y,theta,Dataset)
     
     J(5,1) = 0;
     J(5,2) = 0;
-    J(5,3) = 0
+    J(5,3) = 0;
     J(5,4) =  k_hyb;
     J(5,5) = -(mu + delta_m);
     J(5,6) = 0;
-    J(5,7) = 0
+    J(5,7) = 0;
     
     J(6,1) = 0;
     J(6,2) = 0;
-    J(6,3) = Beta;
+    J(6,3) = beta;
     J(6,4) = 0;
-    J(6,5) = f_srna * Beta;
+    J(6,5) = f_srna * beta;
     J(6,6) = -(matur + mu +delta_g) -(vz/(Kz + ratio*(z-z0) + p)) + (vz*p)*(1/(Kz + ratio*(z-z0) + p))^2;
     J(6,7) = ratio*( (vz*p)*(1/(Kz + ratio*(z-z0) + p))^2 );
     

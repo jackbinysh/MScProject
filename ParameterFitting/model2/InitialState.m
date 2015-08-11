@@ -20,15 +20,18 @@ z0 = 9; % experimentally determined
 copies = 300; %(plasmid copy number)
 
 % reading in the parameters we are currently guessing
+ % order should be {'f_srna';'k_on';'k_off';'k_hyb';'k_matur';'delta_m';'delta_s';'mu';'beta';'c'};
 f_srna = theta(1);
 k_on = theta(2);
 k_off = theta(3);
 k_hyb = theta(4);
-delta_m = theta(5);
-delta_s = theta(6);
-mu = theta(7);
-beta = theta(8);
-ratio = theta(9);
+k_matur = theta(5);
+delta_m = theta(6);
+delta_s = theta(7);
+mu = theta(8);
+beta = theta(9);
+ratio = theta(10);
+
 
 % set whether atc or iptg have been turned on at a constant level
 if Atc==0, fAtc = f_tet; %aTc
@@ -67,17 +70,29 @@ root = root(root>0);
 p = a/(matur + mu + delta_g +(vz/(Kz+root)));
 g = root - p;
 z = z0 + (g/ratio);
-x0 = [s, m ,y, c , p , z ];
+x0 = [si, s, m ,y, c , p , z ];
 
-% %%a bit of code to check we really are getting the fixed point
+
+% %a bit of code to check we are getting the fixed point 
 % x = x0;
-% copies*a_tet/fAtc - mu*x(1) - delta_s*x(1) - k_on*x(1)*x(2) + k_off*x(3) %sRNA
-% copies*a_lac/fIptg - mu*x(2) - delta_m*x(2) - k_on*x(1)*x(2) + k_off*x(3) %mRNA
-% k_on*x(1)*x(2) - k_off*x(3) - k_hyb*x(3) - mu*x(3) -  delta_m*x(3) %sRNA:mRNA_intermediate
-% k_hyb*x(3) - mu*x(4) - (delta_m)*x(4) %sRNA:mRNA_stable
-% beta*x(2) + f_srna*beta*x(4) - matur*x(5) - mu*x(5) - delta_g*x(5) - (vz*x(5))/(Kz + x(5) + g) %GFP non-mature
-% matur*x(5) - (mu + delta_g)*g - ((vz*g)/(Kz + x(5) + g)) %measured fluoresence
-% end
+% 
+%     dx(1) = copies*a_tet/fAtc - (mu + delta_s)*x(1) - k_matur*x(1); %immature sRNA
+% 
+%     dx(2) = k_matur*x(1) - (mu+ delta_s) *x(2) - k_on*x(2)*x(3) + k_off*x(4); %mature sRNA
+% 
+%     dx(3) = copies*a_lac/fIptg - (mu + delta_m)*x(3)- k_on*x(2)*x(3) + k_off*x(4); %mRNA
+%     
+%     dx(4) = k_on*x(2)*x(3) - k_off*x(4) - k_hyb*x(4) - mu*x(4) - delta_m*x(4); %sRNA:mRNA_intermediate
+%     
+%     dx(5) = k_hyb*x(4) - mu*x(5) - (delta_m)*x(5); %sRNA:mRNA_stable
+%      
+%     dx(6) = beta*x(3) + f_srna*beta*x(5) - matur*x(6) - mu*x(6) - delta_g*x(6) - (vz*x(6))/(Kz + x(6) + ratio*(x(7)-z0)); %GFP non-mature
+% 
+%     dx(7) = (1/ratio)* ( matur*x(6) - (mu + delta_g)*ratio*(x(7)-z0) - ((vz*ratio*(x(7)-z0))/(Kz + x(6) + ratio*(x(7)-z0))) ); %measured fluoresence
+%  
+%     dx = dx';
+
+end
 
 
 
