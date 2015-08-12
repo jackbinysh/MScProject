@@ -18,18 +18,20 @@ Data = csvread(strcat('./data/CleanedData/data',Dataset,'.csv'));
 % back
 
 theta = bestever.x .* varargin{1}.Scale;
+
+% plotting the original model with its original parameters
+% order should be {'f_srna';'k_on';'k_off';'k_hyb';'k_matur';'delta_m';'delta_s';'mu';'beta';'c'};
+theta = [435,1e5,1e7,0.01,0.175,0.1,0.0166,0.0023,973]'
+
 x0 = InitialState(theta,0,1); 
-
-options = odeset('MaxStep',30); 
 options = odeset('Jacobian',@Jacobian,'MaxStep',30); 
-
-[T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
+[T,Prediction] = ode15s(@RibodynamicsModel,[0,Times(end)],x0,options,theta,Dataset);
 
 
 %plot the experimental data and simulation
 hold on;
 plot(Times,Data);
-plot(Times,Prediction(:,6),'linewidth', 3.5);
+plot(T,Prediction(:,6),'linewidth', 3.5);
 hold off
 
 % the residuals
