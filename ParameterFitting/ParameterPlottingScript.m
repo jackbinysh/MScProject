@@ -8,10 +8,10 @@ format long g;
 % a workflow for reading in and analysing a single dataset
 
 % the solution found by optimisation
-load('variablescmaes.mat');
+load('variablescmaes13_9_.mat');
 
 % the experimental data
-Dataset = '16_8';
+Dataset = '13_9';
 Times = csvread(strcat('./data/CleanedData/time',Dataset,'.csv'));
 Data = csvread(strcat('./data/CleanedData/data',Dataset,'.csv'));
 % remember we have scaled this by our initial guess vector. So we scale
@@ -24,14 +24,14 @@ theta = bestever.x .* varargin{1}.Scale;
 theta = [435,1e5,1e7,0.01,0.175,0.1,0.0166,0.0023,973]'
 
 x0 = InitialState(theta,0,1); 
-options = odeset('Jacobian',@Jacobian,'MaxStep',30); 
-[T,Prediction] = ode15s(@RibodynamicsModel,[0,Times(end)],x0,options,theta,Dataset);
+options = odeset('Jacobian',@Jacobian,'MaxStep',10); 
+[T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
 
 
 %plot the experimental data and simulation
 hold on;
 plot(Times,Data);
-plot(T,Prediction(:,6),'linewidth', 3.5);
+plot(Times,Prediction(:,6),'linewidth', 3.5);
 hold off
 
 % the residuals
