@@ -17,8 +17,8 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Initialt
     % setting some display etc. options
     opts.DispModulo = 1;
     opts.Restarts = 2;
-    opts.SaveFilename = strcat('variablescmaes',Dataset,num2str(SaveNumber),'.mat');
-    opts.LogFilenamePrefix = strcat('outcmaes',Dataset,num2str(SaveNumber));
+    opts.SaveFilename = strcat('variablescmaes',Dataset,'_',num2str(SaveNumber),'.mat');
+    opts.LogFilenamePrefix = strcat('outcmaes',Dataset,'_',num2str(SaveNumber));
     
     
     % passing everyting into the algorithm
