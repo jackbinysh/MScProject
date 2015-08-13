@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=4,mem=2000mb,walltime=8:00:00
+#PBS -V
+#PBS -t 1-20
+
+cd $PBS_O_WORKDIR
+
+echo "$PBS_ARRAYID"
+
+# set the dataset here
+Dataset=13_9
+
+module load matlab
+matlab -nojvm -logfile output$Dataset-$PBS_ARRAYID.log -r "SaveNumber = $PBS_ARRAYID; Dataset = $Dataset ParameterFittingScript"
