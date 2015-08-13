@@ -1,4 +1,4 @@
-clc; clear variables -except SaveNumber Dataset
+clc; clearvars -except SaveNumber Dataset;
 format long g;
 
 % decide which dataset we are using,and 
@@ -6,7 +6,7 @@ format long g;
 % im often setting this outside of the script, so I'll only set this now if
 % its empty
 if(~exist('SaveNumber')) SaveNumber = []; end
-if(~exist('Dataset')) Dataset = '13_9'; end;
+if(~exist('Dataset')) Dataset = ''; end;
 
 % Initial Guess and bounds. Thesse  are currently set to the best guess
 % from GArun_30_07_2015.

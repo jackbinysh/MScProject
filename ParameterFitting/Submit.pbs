@@ -11,4 +11,4 @@ echo "$PBS_ARRAYID"
 Dataset=13_9
 
 module load matlab
-matlab -nojvm -logfile output$Dataset-$PBS_ARRAYID.log -r "SaveNumber = $PBS_ARRAYID; Dataset = $Dataset ParameterFittingScript"
+matlab -nojvm -logfile output$Dataset-$PBS_ARRAYID.log -r "SaveNumber = $PBS_ARRAYID; Dataset = \'$Dataset\' ParameterFittingScript"
