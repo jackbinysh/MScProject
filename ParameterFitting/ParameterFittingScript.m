@@ -1,13 +1,12 @@
-clc; clear variables -except SaveNumber
+clc; clear variables -except SaveNumber Dataset
 format long g;
 
-% decide which dataset we are using
-Dataset = '13_9';
-
+% decide which dataset we are using,and 
 % Give a save number, if we want to do multiple runs.
 % im often setting this outside of the script, so I'll only set this now if
 % its empty
 if(~exist('SaveNumber')) SaveNumber = []; end
+if(~exist('Dataset')) Dataset = '13_9'; end;
 
 % Initial Guess and bounds. Thesse  are currently set to the best guess
 % from GArun_30_07_2015.
