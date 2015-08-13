@@ -5,8 +5,8 @@ format long g;
 % Give a save number, if we want to do multiple runs.
 % im often setting this outside of the script, so I'll only set this now if
 % its empty
-if(~exist('SaveNumber')) SaveNumber = []; end
-if(~exist('Dataset')) Dataset = ''; end;
+if(~exist('SaveNumber','var')) SaveNumber = []; end
+if(~exist('Dataset','var')) Dataset = {'13_9','14_7'}; end;
 
 % Initial Guess and bounds. Thesse  are currently set to the best guess
 % from GArun_30_07_2015.

@@ -11,14 +11,21 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Initialt
     opts.UBounds = opts.UBounds./Scale;
     Initialtheta = Initialtheta./Scale;
     
+    % loading in the datasets we want
+    for i = 1:length(Dataset)
+        Data{1,i} = Dataset{i};
+        Data{2,i} = csvread(strcat('./data/CleanedData/time',Dataset{i},'.csv'));
+        Data{3,i} = mean(csvread(strcat('./data/CleanedData/data',Dataset{i},'.csv')),2);
+    end
+    
     % constructing the struct of additional arguments to pass to the objective
-    Varargin = struct('Scale',Scale,'Dataset',Dataset);
+    Varargin = struct('Scale',Scale,'Data',{Data});
     
     % setting some display etc. options
     opts.DispModulo = 1;
     opts.Restarts = 2;
-    opts.SaveFilename = strcat('variablescmaes',Dataset,'_',num2str(SaveNumber),'.mat');
-    opts.LogFilenamePrefix = strcat('outcmaes',Dataset,'_',num2str(SaveNumber));
+    opts.SaveFilename = strcat('variablescmaes',strjoin(Dataset,'_'),'_',num2str(SaveNumber),'.mat');
+    opts.LogFilenamePrefix = strcat('outcmaes',strjoin(Dataset,'_'),'_',num2str(SaveNumber));
     
     
     % passing everyting into the algorithm
