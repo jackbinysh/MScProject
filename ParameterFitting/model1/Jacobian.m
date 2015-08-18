@@ -16,6 +16,7 @@ function J = Jacobian(t,y,theta,Dataset)
     delta_g = 0.0005; %1/min (Andersen et al., Appl. Environ. Microbiol., 1998)
     matur = 0.132; %1/min (Iizuka et al., Anal. Chem., 2011)
     vz = 100; %nM/min (rate of enzymatic degradation) (Hersch, PNAS, 2004)
+    if(dataset == '14_7') vz = 0; end;
     Kz = 75; %nM (dissociation constant of enzymatic degradation) (Hersch, PNAS, 2004)
     % other parameters
     z0 = 9; % experimentally determined
