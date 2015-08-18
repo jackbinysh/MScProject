@@ -23,7 +23,7 @@ function [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta,Initialt
     
     % setting some display etc. options
     opts.DispModulo = 1;
-    opts.Restarts = 2;
+    opts.PopSize = 10;
     opts.SaveFilename = strcat('variablescmaes',strjoin(Dataset,'_'),'_',num2str(SaveNumber),'.mat');
     opts.LogFilenamePrefix = strcat('outcmaes',strjoin(Dataset,'_'),'_',num2str(SaveNumber));
     

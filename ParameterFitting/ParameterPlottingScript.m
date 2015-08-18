@@ -11,27 +11,25 @@ format long g;
 load('variablescmaes13_9_.mat');
 
 % the experimental data
-Dataset = '13_9';
+Dataset = '14_7';
 Times = csvread(strcat('./data/CleanedData/time',Dataset,'.csv'));
 Data = csvread(strcat('./data/CleanedData/data',Dataset,'.csv'));
 % remember we have scaled this by our initial guess vector. So we scale
 % back
 
 theta = bestever.x .* varargin{1}.Scale;
-
-% plotting the original model with its original parameters
-% order should be {'f_srna';'k_on';'k_off';'k_hyb';'k_matur';'delta_m';'delta_s';'mu';'beta';'c'};
-theta = [435,1e5,1e7,0.01,0.175,0.1,0.0166,0.0023,973]'
-
+cd('./model1')
 x0 = InitialState(theta,0,1); 
 options = odeset('Jacobian',@Jacobian,'MaxStep',10); 
 [T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
+cd('..')
 
 
 %plot the experimental data and simulation
 hold on;
 plot(Times,Data);
 plot(Times,Prediction(:,6),'linewidth', 3.5);
+plot(Times,mean(Data,2),'--k','linewidth', 3.5);
 hold off
 
 % the residuals
@@ -43,29 +41,29 @@ plot(T,Residuals);
 % a bit of code to analyse all the different time series
 clear all;
 
-Times = csvread('./data/InitialExperimentalData/time16_8.csv');
-Data = csvread('./data/InitialExperimentalData/data16_8.csv');
+Times = csvread('./data/CleanedData/time14_7.csv');
+Data = csvread('./data/CleanedData/data14_7.csv');
 
-for i = 1:200
-    name = strcat('./data/16_8_mean_new_model_manymoretimes/variablescmaes',num2str(i),'.mat');
-    load(name,'bestever','varargin');
-    f(i) = bestever.f;
-    alltheta(:,i)  = bestever.x .* varargin{1}.Scale;
+for i = 1:20
+    name = strcat('./data/14_7_13_9/variablescmaes13_9_14_7_',num2str(i),'.mat');
+    if exist( name,'file') == 2
+        load(name,'bestever','varargin');
+        f(i) = bestever.f;
+        alltheta(:,i)  = bestever.x .* varargin{1}.Scale;
+    end
 end
 
-filteredtheta = alltheta(:,f<3);
+filteredtheta = alltheta(:, f < 45 & f~=0 );
 
 for i = 1:length(filteredtheta)
     theta = filteredtheta(:,i);
     x0 = InitialState(theta,0,1); 
-    options = odeset('Jacobian',@Jacobian,'MaxStep',30); 
-    [T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,'16_8');
+    options = odeset('Jacobian',@Jacobian,'MaxStep',10); 
+    [T,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,'14_7');
     hold on;
     plot(Times,Prediction(:,6),'linewidth', 3.5);
-    onstate = InitialState(theta,1,1);
-    plot(Times,repmat(onstate(6),1,length(Times)));
     plot(Times,Data);
-
+    plot(Times,mean(Data,2),'linewidth',4);
 end
 
 for i = 1:length(filteredtheta)
