@@ -16,14 +16,29 @@ x0 = InitialState(theta,0,1);
 options = odeset('Jacobian',@Jacobian,'MaxStep',10);
 % now, for each dataset, get the prediction, find its error, add it to the
 % running total
+
+% note, since we are unsure of our initial state, but we reach the
+% attractor quickly, I'll just discard the first 10% of the data.
 Error = 0;
 for i = 1:length(Data(1,:))
     Dataset = Data{1,i};
     Times = Data{2,i};
     Fluorescence = Data{3,i};
     
+    Startpoint = ceil(length(Times)/10); % setting the amount to discard
+ 
+    % run the simulation
     [~,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
-    Error = Error + sum((Fluorescence - Prediction(:,6)).^2);
+    
+    % sometimes the integrator will fail due to step size tolerance. these
+    % are bad points, and we just set the error to inf for them. They
+    % occur in the initial guessing phase of the algorithm.
+    try
+        Error = Error + sum((Fluorescence(Startpoint:end) - Prediction(Startpoint:end,6)).^2);
+    catch
+        Error = Inf;
+    end
+        
 end
 cd('..')
 end
