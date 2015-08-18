@@ -1,0 +1,14 @@
+License checkout failed.
+License Manager Error -97
+License Manager cannot start. 
+Check that the specified ports in the license file are not already in use. 
+Restarting your machine may clear the ports.
+
+Troubleshoot this issue by visiting: 
+http://www.mathworks.com/support/lme/R2015a/97
+
+Diagnostic Information:
+Feature: MATLAB 
+License path: /home/maths/matgqz/.matlab/R2015a_licenses:/warwick/matlab/R2015a/licenses/license.dat:/warwick/matl
+ab/R2015a/licenses/network.lic 
+Licensing error: -97,121.

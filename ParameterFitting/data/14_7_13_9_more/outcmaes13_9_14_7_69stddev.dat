@@ -1,0 +1,2 @@
+%  columns=["iteration, evaluation, sigma, void, void, stds==sigma*sqrt(diag(C))" (startseed=207103, 2015/08/17 8:1:22.03)
+1 31 3.213112e+00 0 0 1.448531e+00 9.177349e-01 1.020795e+00 3.078134e+00 8.822159e-01 4.069237e-01 4.326923e-01 5.840514e-01 2.274044e-01 

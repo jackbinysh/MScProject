@@ -1,0 +1,38 @@
+{'13_9','14_7'}
+11
+output11.log
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+For online documentation, see http://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+seed =
+
+                 69.296994
+
+  n=9: (15,30)-CMA-ES(w=[21 15 12... 0.77 0.25]%, ]%, mu_eff=8.6) on function Error
+Iterat, #Fevals:   Function Value    (median,worst) |Axis Ratio|idx:Min SD idx:Max SD
+    1 ,     31 : 3.1119483932328e+02 +(1e+06,2e+17) | 1.83e+01 |  9:2.5e-01  8:4.6e+00
+    2 ,     61 : 3.3015650795354e+02 +(3e-02,6e+08) | 1.78e+01 |  9:1.9e-01  8:3.5e+00
+    3 ,     91 : 2.8790121381746e+02 +(4e+01,8e+08) | 1.69e+01 |  9:2.0e-01  8:3.3e+00
+    4 ,    121 : 3.3016184552140e+02 +(3e-02,4e+08) | 1.68e+01 |  9:1.7e-01  8:2.9e+00
+    5 ,    151 : 3.3009096268912e+02 +(1e-01,3e+12) | 1.60e+01 |  9:1.9e-01  8:2.9e+00
+    6 ,    181 : 2.8892074486161e+02 +(4e+01,1e+14) | 1.53e+01 |  9:2.1e-01  8:3.1e+00
+[Warning: Failure at t=9.476490e+02.  Unable to meet integration tolerances
+without reducing the step size below the smallest value allowed (1.818989e-12)
+at time t.] 
+[> In ode15s (line 730)
+  In Error (line 25)
+  In cmaes (line 957)
+  In ParameterFit (line 32)
+  In ParameterFittingScript (line 27)] 
+>> 

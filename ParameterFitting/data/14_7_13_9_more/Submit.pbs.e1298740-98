@@ -1,0 +1,75 @@
+License checkout failed.
+License Manager Error -97
+License Manager cannot start. 
+Check that the specified ports in the license file are not already in use. 
+Restarting your machine may clear the ports.
+
+Troubleshoot this issue by visiting: 
+http://www.mathworks.com/support/lme/R2015a/97
+
+Diagnostic Information:
+Feature: MATLAB 
+License path: /home/maths/matgqz/.matlab/R2015a_licenses:/warwick/matlab/R2015a/licenses/license.dat:/warwick/matl
+ab/R2015a/licenses/network.lic 
+Licensing error: -97,121.
+
+------------------------------------------------------------------------
+       Segmentation violation detected at Mon Aug 17 13:31:01 2015
+------------------------------------------------------------------------
+
+Configuration:
+  Crash Decoding      : Disabled
+  Crash Mode          : continue (default)
+  Default Encoding    : UTF-8
+  GNU C Library       : 2.11.3 stable
+  Host Name           : scafell
+  MATLAB Architecture : glnxa64
+  MATLAB Root         : /warwick/matlab/R2015a
+  MATLAB Version      : 8.5.0.197613 (R2015a)
+  Operating System    : Linux 3.0.101-0.47.55-default #1 SMP Thu May 28 08:25:11 UTC 2015 (dc083ee) x86_64
+  Processor ID        : x86 Family 6 Model 23 Stepping 10, GenuineIntel
+
+Fault Count: 1
+
+
+Abnormal termination:
+Segmentation violation
+
+Register State (from fault):
+  RAX = 00007f77c51e3620  RBX = 0000000000000000
+  RCX = 000000000081c1c0  RDX = 0000000000000001
+  RSP = 00007f77b6b97160  RBP = 00007f77b6b971d0
+  RSI = 00007f77c4e57ab0  RDI = 00007f77b6b97190
+
+   R8 = 0000000000900770   R9 = 00000000000035e9
+  R10 = fffffffffffff7d3  R11 = 00007f77c6a4dbd0
+  R12 = 00007f77b6b97230  R13 = 00000000008900e8
+  R14 = 000000000079af80  R15 = 0000000000000004
+
+  RIP = 00007f77c4e587ee  EFL = 0000000000010246
+
+   CS = 0033   FS = 0000   GS = 0000
+
+Stack Trace (from fault):
+[  0] 0x00007f77c4e587ee      /warwick/matlab/R2015a/bin/glnxa64/libmwms.so+02373614 _ZNK10foundation7msg_svc8eventmgr6detail22SubscriptionCountByTag8getCountEv+00000094
+[  1] 0x00007f77c4e588c9      /warwick/matlab/R2015a/bin/glnxa64/libmwms.so+02373833 _ZN10foundation7msg_svc8eventmgr6detail22SubscriptionCountByTag26decrementSubscriptionCountEv+00000009
+[  2] 0x00007f77c4e69751      /warwick/matlab/R2015a/bin/glnxa64/libmwms.so+02443089
+[  3] 0x00007f77c4e57711      /warwick/matlab/R2015a/bin/glnxa64/libmwms.so+02369297 _ZN10foundation7msg_svc8eventmgr16ScopedConnectionD1Ev+00000129
+[  4] 0x00007f77cb4d0a05                                   /lib64/libc.so.6+00219653 __cxa_finalize+00000165
+[  5] 0x00007f77ccffd876 /warwick/matlab/R2015a/bin/glnxa64/libmwservices.so+01575030
+[  6] 0x00007f77cd1b121d /warwick/matlab/R2015a/bin/glnxa64/libmwservices.so+03359261 _fini+00000009
+[  7] 0x00007f77cb4d0665                                   /lib64/libc.so.6+00218725
+[  8] 0x00007f77ce169a10                                   <unknown-module>+00000000
+
+
+If this problem is reproducible, please submit a Service Request via:
+    http://www.mathworks.com/support/contact_us/
+
+A technical support engineer might contact you with further information.
+
+Thank you for your help.** This crash report has been saved to disk as /home/maths/matgqz/matlab_crash_dump.13752-1 **
+
+
+
+MATLAB is exiting because of fatal error
+/var/spool/torque/mom_priv/jobs/1298740-98.moo.csc.warwick.ac.uk.SC: line 20: 13752 Killed                  matlab -nojvm -logfile $logname -r "SaveNumber = $PBS_ARRAYID; Dataset = $Dataset; ParameterFittingScript;"

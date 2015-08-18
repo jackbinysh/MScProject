@@ -1,3 +1,3 @@
-14/08
+16/08
 
-A first run of the GA, using an error function with both 13_9 and 14_7 in it
+a preliminary optimisation of both the 13_9 and 14_7 datasets, with an objective function simply the sum of them.

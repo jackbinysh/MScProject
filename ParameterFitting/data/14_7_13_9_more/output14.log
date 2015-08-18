@@ -1,0 +1,46 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+For online documentation, see http://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+seed =
+
+                 72.612707
+
+  n=9: (15,30)-CMA-ES(w=[21 15 12... 0.77 0.25]%, ]%, mu_eff=8.6) on function Error
+Iterat, #Fevals:   Function Value    (median,worst) |Axis Ratio|idx:Min SD idx:Max SD
+    1 ,     31 : 2.5767764151225e+02 +(7e+01,3e+15) | 7.15e+00 |  7:3.8e-01  1:2.7e+00
+[Warning: Failure at t=3.694943e+02.  Unable to meet integration tolerances
+without reducing the step size below the smallest value allowed (9.094947e-13)
+at time t.] 
+[> In ode15s (line 730)
+  In Error (line 25)
+  In cmaes (line 957)
+  In ParameterFit (line 32)
+  In ParameterFittingScript (line 27)] 
+{Error using -
+Matrix dimensions must agree.
+
+Error in Error (line 26)
+    Error = Error + sum((Fluorescence - Prediction(:,6)).^2);
+
+Error in cmaes (line 957)
+      fitness.raw(k) = feval(fitfun, arxvalid(:,k), varargin{:});
+
+Error in ParameterFit (line 32)
+    [xmin,fmin,counteval,stopflag,out] =
+    cmaes('Error',Initialtheta,[],opts,Varargin);
+
+Error in ParameterFittingScript (line 27)
+[xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta, InitialthetaLB,
+InitialthetaUB, Dataset,SaveNumber);
+} 

@@ -1,0 +1,17 @@
+{Error using -
+Matrix dimensions must agree.
+
+Error in Error (line 26)
+    Error = Error + sum((Fluorescence - Prediction(:,6)).^2);
+
+Error in cmaes (line 957)
+      fitness.raw(k) = feval(fitfun, arxvalid(:,k), varargin{:});
+
+Error in ParameterFit (line 32)
+    [xmin,fmin,counteval,stopflag,out] =
+    cmaes('Error',Initialtheta,[],opts,Varargin);
+
+Error in ParameterFittingScript (line 27)
+[xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta, InitialthetaLB,
+InitialthetaUB, Dataset,SaveNumber);
+} 
