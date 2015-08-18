@@ -7,10 +7,16 @@ function dx = RibodynamicsModel(t,x, theta,dataset)
     f_lac = 620; %dimensionless (fold) (Lutz and Bujard, NAR, 1997)
     a_tet = 11; %nM/min (Lutz and Bujard, NAR, 1997)
     a_lac = 11; %nM/min (Lutz and Bujard, NAR, 1997)
+    
     %degradation parameters
+
+    vz = 100; %nM/min (rate of enzymatic degradation) (Hersch, PNAS, 2004)
+    % note ClpX degredation tag can be on or off, we think it was off for
+    % the 14_7 dataset
+    if(dataset == '14_7') vz = 0; end;
+    
     delta_g = 0.0005; %1/min (Andersen et al., Appl. Environ. Microbiol., 1998)
     matur = 0.132; %1/min (Iizuka et al., Anal. Chem., 2011)
-    vz = 100; %nM/min (rate of enzymatic degradation) (Hersch, PNAS, 2004)
     Kz = 75; %nM (dissociation constant of enzymatic degradation) (Hersch, PNAS, 2004)
     % other parameters
     z0 = 9; % experimentally determined
