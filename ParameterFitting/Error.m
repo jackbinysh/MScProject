@@ -5,8 +5,7 @@ Scale = Varargin.Scale;
 theta = theta .* Scale;
 Data = Varargin.Data;
 
-% choose the model we want to use
-cd('./model1')
+
 %get our initial state from the models fixed point, given the parameters
 % the fixed point is solved for with IPTG on.
 x0 = InitialState(theta,0,1);
@@ -40,5 +39,4 @@ for i = 1:length(Data(1,:))
     end
         
 end
-cd('..')
 end
