@@ -24,7 +24,10 @@ for i = 1:length(Data(1,:))
     Times = Data{2,i};
     Fluorescence = Data{3,i};
     
-    Startpoint = ceil(length(Times)/10); % setting the amount to discard
+    Startpoint = ceil(length(Times)/10); % setting the amount to discard]
+    SecondPartTime = 7* (60 + 60); % 7 initial periods
+    BelowTime = Times < SecondPartTime;
+    Endpoint = max(find(BelowTime));
  
     % run the simulation
     [~,Prediction] = ode15s(@RibodynamicsModel,Times,x0,options,theta,Dataset);
@@ -33,7 +36,7 @@ for i = 1:length(Data(1,:))
     % are bad points, and we just set the error to inf for them. They
     % occur in the initial guessing phase of the algorithm.
     try
-        Error = Error + sum((Fluorescence(Startpoint:end) - Prediction(Startpoint:end,6)).^2);
+        Error = Error + sum((Fluorescence(Startpoint:Endpoint) - Prediction(Startpoint:Endpoint,6)).^2);
     catch
         Error = Inf;
     end
