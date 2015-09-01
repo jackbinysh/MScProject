@@ -2,9 +2,6 @@ function SensitivityMatrix = SensitivityMatrix(theta,Dataset)
 	
 	% read in the dataset, and get the integration times
     Times = csvread(strcat('./data/CleanedData/time',Dataset,'.csv'));
-
-	% choose the model to use 
-	cd('./model1')
 	
 	% options for solver
 	x0 = InitialState(theta,0,1);
@@ -28,5 +25,4 @@ function SensitivityMatrix = SensitivityMatrix(theta,Dataset)
 		SensitivityMatrix(:,i) =  ( UpperPrediction(:,6) - LowerPrediction(:,6) )/ (2*dtheta);
 	end
 	
-	cd('..')
 end
