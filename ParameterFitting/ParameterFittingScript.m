@@ -23,7 +23,7 @@ InitialthetaUB = [1e4;1e7;1e8;10000;10000;1000;5;100;2000]
 % for an initial theta, we uniformly select a point in this hypercube
 %Initialtheta = InitialthetaLB + (InitialthetaUB-InitialthetaLB ).*rand(length(InitialthetaLB),1) % i want it displayed
 
-Initialtheta = [87502.2118703189;1;100000000;10000;386.066417828888;149.302056121438;0.0125959056101424;10;1000];
+Initialtheta = [1476.09315060305;91027.8669948397;68425985.7997264;1;451.715025075103;1;0.0500000000000000;10;507.453643463837]
 
 % plug into the wrapper function for the fitter
 [xmin,fmin,counteval,stopflag,out] = ParameterFit(Initialtheta, InitialthetaLB, InitialthetaUB, Dataset,SaveNumber);
